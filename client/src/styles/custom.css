@@ -1,0 +1,24 @@
+/* hero banner */
+.hero-banner{
+  background: linear-gradient(120deg, rgba(255,99,71,0.9), rgba(255,140,0,0.9));
+  padding: 48px 0;
+  margin-bottom: 1rem;
+}
+.hero-banner h1{ color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+.hero-banner .lead{ color: #fff; opacity: 0.95; }
+
+/* recipe card hover */
+.recipe-card { transition: transform .18s ease, box-shadow .18s ease; border-radius: .6rem; overflow: hidden; }
+.recipe-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+
+/* detail hero */
+.detail-hero { height: 320px; background-size: cover; background-position: center; position: relative; border-radius: .5rem; overflow: hidden; }
+.detail-hero-overlay{ position: absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.65)); display:flex; align-items:flex-end; }
+
+/* truncate text */
+.text-truncate { overflow: hidden; text-overflow: ellipsis; }
+
+/* responsive tweaks */
+@media (max-width: 768px){
+  .hero-banner{ padding: 32px 0; text-align: center; }
+}
