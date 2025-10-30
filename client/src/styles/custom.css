@@ -22,3 +22,24 @@
 @media (max-width: 768px){
   .hero-banner{ padding: 32px 0; text-align: center; }
 }
+
+/* auth pages */
+.auth-wrapper{ position: relative; min-height: calc(100vh - 56px - 64px); display:flex; align-items:center; }
+.auth-bg{ position:absolute; inset:0; background: radial-gradient(1200px 600px at 10% -10%, rgba(255,165,0,0.2), transparent 60%),
+  radial-gradient(1000px 500px at 110% 10%, rgba(255,99,71,0.18), transparent 60%),
+  linear-gradient(135deg, #fff 0%, #fff 40%, #fff5eb 100%); }
+.auth-accent{ position:absolute; width:280px; height:280px; right:-60px; top:-60px; background: linear-gradient(135deg, #ff9f1a, #ff5e62); filter: blur(30px); opacity:.25; border-radius: 50%; }
+.auth-card{ position: relative; backdrop-filter: blur(6px); background: rgba(255,255,255,0.9); border-radius: 1rem; box-shadow: 0 20px 40px rgba(0,0,0,0.08); border: 1px solid rgba(255,255,255,0.6); }
+.auth-title{ background: linear-gradient(120deg, #ff5e62, #ff9966); -webkit-background-clip: text; background-clip:text; color: transparent; }
+.auth-submit{ background-image: linear-gradient(120deg, #ff5e62, #ff9966) !important; border: none !important; box-shadow: 0 8px 20px rgba(255,153,102,0.35); transition: transform .15s ease, box-shadow .15s ease; }
+.auth-submit:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(255,153,102,0.45); }
+.auth-illustration{ position: relative; height: 100%; min-height: 460px; border-radius: 1rem; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.1); }
+.auth-illustration::before{ content:""; position:absolute; inset:0; background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; transform: scale(1.02); filter: saturate(1.1) contrast(1.05); }
+.auth-illustration::after{ content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.55)); }
+.auth-illustration-content{ position: relative; z-index:1; color:#fff; padding: 28px; display:flex; flex-direction:column; justify-content:flex-end; height:100%; }
+.auth-badge{ display:inline-flex; align-items:center; gap:8px; padding:6px 12px; background: rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); border-radius: 999px; font-size: 12px; letter-spacing: .4px; }
+
+@media (max-width: 991px){
+  .auth-wrapper{ padding-top: 12px; padding-bottom: 24px; }
+  .auth-illustration{ min-height: 300px; margin-top: 20px; }
+}
