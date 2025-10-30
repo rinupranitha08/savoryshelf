@@ -11,7 +11,7 @@ export default function AddRecipe() {
     try {
       console.log('Submitting to API:', formData); // Debug log
       await api.post('/recipes', formData);
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error('Error adding recipe:', error);
       alert('Failed to add recipe. Please try again.');

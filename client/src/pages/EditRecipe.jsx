@@ -18,7 +18,7 @@ export default function EditRecipe() {
 
   const handleSubmit = async (data) => {
     await api.put(`/recipes/${id}`, data);
-    nav('/');
+    nav('/home');
   };
 
   if (!initial) return <div>Loading...</div>;
