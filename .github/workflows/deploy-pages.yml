@@ -28,11 +28,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: client/package-lock.json
 
-      - name: Install & Build
+      - name: Install & Build (force base path)
         working-directory: client
         run: |
           npm ci
-          npm run build
+          npm run build -- --base=/savoryshelf/
           # SPA deep-link fix: serve index.html for 404 routes
           cp dist/index.html dist/404.html
 
