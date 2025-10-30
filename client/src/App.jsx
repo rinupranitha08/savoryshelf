@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Home from './pages/Home';
@@ -40,21 +40,39 @@ export default function App() {
     setUser(null);
   };
 
-  const isAuthPath = typeof window !== 'undefined' && (window.location.pathname === '/login' || window.location.pathname === '/signup');
+  function AuthAwareHero() {
+    const location = useLocation();
+    const isAuthPath = location.pathname === '/login' || location.pathname === '/signup';
+    if (isAuthPath) return null;
+    return (
+      <div className="hero-banner text-white d-flex align-items-center">
+        <Container>
+          <h1 className="display-5 fw-bold">Cook. Share. Delight.</h1>
+          <p className="lead mb-3">Discover tasty recipes, save your favorites, and make every meal memorable.</p>
+          <div>
+            <LinkContainer to="/add"><a className="btn btn-light btn-lg me-2">Add Your Recipe</a></LinkContainer>
+            <LinkContainer to="/home"><a className="btn btn-outline-light btn-lg">Browse Recipes</a></LinkContainer>
+          </div>
+        </Container>
+      </div>
+    );
+  }
 
-  return (
-    <ErrorBoundary>
-      <BrowserRouter>
-        <div className="d-flex flex-column min-vh-100">
+  function AppContent() {
+    const location = useLocation();
+    const onRoot = location.pathname === '/';
+    return (
+      <div className="d-flex flex-column min-vh-100">
+        {!onRoot && (
           <Navbar bg="light" expand="lg" className="mb-0 shadow-sm">
             <Container>
-              <LinkContainer to="/"><Navbar.Brand className="fw-bold text-primary">SavoryShelf</Navbar.Brand></LinkContainer>
+              <LinkContainer to="/home"><Navbar.Brand className="fw-bold text-primary">SavoryShelf</Navbar.Brand></LinkContainer>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                   {user && (
                     <>
-                      <LinkContainer to="/"><Nav.Link>Home</Nav.Link></LinkContainer>
+                      <LinkContainer to="/home"><Nav.Link>Home</Nav.Link></LinkContainer>
                       <LinkContainer to="/add"><Nav.Link>Add Recipe</Nav.Link></LinkContainer>
                     </>
                   )}
@@ -75,36 +93,36 @@ export default function App() {
               </Navbar.Collapse>
             </Container>
           </Navbar>
+        )}
 
-          {/* Hero */}
-          {!isAuthPath && (
-            <div className="hero-banner text-white d-flex align-items-center">
-              <Container>
-                <h1 className="display-5 fw-bold">Cook. Share. Delight.</h1>
-                <p className="lead mb-3">Discover tasty recipes, save your favorites, and make every meal memorable.</p>
-                <div>
-                  <LinkContainer to="/add"><a className="btn btn-light btn-lg me-2">Add Your Recipe</a></LinkContainer>
-                  <LinkContainer to="/"><a className="btn btn-outline-light btn-lg">Browse Recipes</a></LinkContainer>
-                </div>
-              </Container>
-            </div>
-          )}
+        {/* Hero */}
+        {!onRoot && <AuthAwareHero />}
 
-          <Container className="flex-grow-1 my-4">
-            <Routes>
-              <Route path="/" element={user ? <Home /> : <Navigate to="/login" replace />} />
-              <Route path="/add" element={<ProtectedRoute><AddRecipe /></ProtectedRoute>} />
-              <Route path="/edit/:id" element={<ProtectedRoute><EditRecipe /></ProtectedRoute>} />
-              <Route path="/recipes/:id" element={<ProtectedRoute><RecipeDetail /></ProtectedRoute>} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-            </Routes>
-          </Container>
+        <Container className="flex-grow-1 my-4">
+          <Routes>
+            <Route path="/" element={<Navigate to="/signup" replace />} />
+            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+            <Route path="/add" element={<ProtectedRoute><AddRecipe /></ProtectedRoute>} />
+            <Route path="/edit/:id" element={<ProtectedRoute><EditRecipe /></ProtectedRoute>} />
+            <Route path="/recipes/:id" element={<ProtectedRoute><RecipeDetail /></ProtectedRoute>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </Container>
 
+        {!onRoot && (
           <footer className="bg-light py-3 mt-4">
             <Container><p className="text-center mb-0">SavoryShelf © 2025 — Share a recipe, spark a smile.</p></Container>
           </footer>
-        </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <ErrorBoundary>
+      <BrowserRouter>
+        <AppContent />
       </BrowserRouter>
     </ErrorBoundary>
   );

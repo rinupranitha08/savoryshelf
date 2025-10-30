@@ -16,7 +16,7 @@ export default function Login() {
     setLoading(true);
     try {
       await login({ email, password });
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       const msg = err?.response?.data?.message || 'Login failed';
       setError(msg);
@@ -35,14 +35,32 @@ export default function Login() {
               <p className="text-muted mb-0">Sign in to continue cooking</p>
             </div>
             {error && <Alert variant="danger" className="py-2">{error}</Alert>}
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit} autoComplete="off">
               <Form.Group className="mb-3" controlId="email">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" placeholder="you@example.com" value={email} onChange={e=>setEmail(e.target.value)} required />
+                <Form.Control
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={e=>setEmail(e.target.value)}
+                  required
+                  autoComplete="username"
+                  readOnly
+                  onFocus={e => e.target.removeAttribute('readonly')}
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="••••••••" value={password} onChange={e=>setPassword(e.target.value)} required />
+                <Form.Control
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={e=>setPassword(e.target.value)}
+                  required
+                  autoComplete="current-password"
+                  readOnly
+                  onFocus={e => e.target.removeAttribute('readonly')}
+                />
               </Form.Group>
               <div className="d-grid">
                 <Button type="submit" disabled={loading} variant="primary" style={{backgroundImage:'linear-gradient(120deg, tomato, darkorange)', border:'none'}}>
