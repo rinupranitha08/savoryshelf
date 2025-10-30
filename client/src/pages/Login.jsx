@@ -26,66 +26,71 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-bg"></div>
-      <div className="auth-accent"></div>
-      <Container>
-        <Row className="align-items-center justify-content-center g-4">
-          <Col xs={12} lg={6} xl={5}>
-            <Card className="border-0 auth-card">
-              <Card.Body className="p-4 p-md-5">
-                <div className="mb-3 text-center">
-                  <div className="auth-badge mb-2 mx-auto">🍳 Fresh recipes await</div>
-                  <h2 className="fw-bold mb-1 auth-title">Welcome back</h2>
-                  <p className="text-muted mb-0">Sign in to continue cooking</p>
-                </div>
-                {error && <Alert variant="danger" className="py-2">{error}</Alert>}
-                <Form onSubmit={onSubmit} autoComplete="off">
-                  <Form.Group className="mb-3" controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                      type="email"
-                      placeholder="you@example.com"
-                      value={email}
-                      onChange={e=>setEmail(e.target.value)}
-                      required
-                      autoComplete="username"
-                      readOnly
-                      onFocus={e => e.target.removeAttribute('readonly')}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-4" controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="••••••••"
-                      value={password}
-                      onChange={e=>setPassword(e.target.value)}
-                      required
-                      autoComplete="current-password"
-                      readOnly
-                      onFocus={e => e.target.removeAttribute('readonly')}
-                    />
-                  </Form.Group>
-                  <div className="d-grid">
-                    <Button type="submit" disabled={loading} className="auth-submit">
-                      {loading ? 'Signing in...' : 'Sign In'}
-                    </Button>
-                  </div>
-                </Form>
-                <div className="text-center mt-3">
-                  <small className="text-muted">New here? <Link to="/signup">Create an account</Link></small>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col xs={12} lg={6} xl={7}>
-            <div className="auth-illustration">
-              <div className="auth-illustration-content">
-                <div className="auth-badge">🥗 Chef's picks</div>
-                <h3 className="mt-3 mb-1">Cook. Share. Delight.</h3>
-                <p className="mb-0">Discover tasty recipes and make every meal memorable.</p>
+    <div className="login-split d-flex align-items-stretch">
+      <Container fluid>
+        <Row className="g-0 min-vh-100">
+          {/* Left visual */}
+          <Col lg={6} className="d-none d-lg-block">
+            <div className="login-visual h-100">
+              <div className="login-logo">
+                <div className="mark">🍳</div>
+                <div className="brand">SavoryShelf</div>
               </div>
+            </div>
+          </Col>
+
+          {/* Right form panel */}
+          <Col xs={12} lg={6} className="d-flex align-items-center justify-content-center p-4 p-md-5">
+            <div className="w-100 d-flex justify-content-center">
+              <Card className="login-card shadow border-0">
+                <Card.Body className="p-4 p-md-5">
+                  <div className="mb-4">
+                    <h2 className="login-welcome mb-1 text-center">Welcome</h2>
+                    <p className="login-muted text-center mb-0">Log in into your existing account</p>
+                  </div>
+                  {error && <Alert variant="danger" className="py-2">{error}</Alert>}
+                  <Form onSubmit={onSubmit} autoComplete="off">
+                    <Form.Group className="mb-3" controlId="email">
+                      <Form.Label className="login-muted">E-mail</Form.Label>
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter Email"
+                        value={email}
+                        onChange={e=>setEmail(e.target.value)}
+                        required
+                        autoComplete="username"
+                        readOnly
+                        onFocus={e => e.target.removeAttribute('readonly')}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-2" controlId="password">
+                      <Form.Label className="login-muted">Password</Form.Label>
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={e=>setPassword(e.target.value)}
+                        required
+                        autoComplete="current-password"
+                        readOnly
+                        onFocus={e => e.target.removeAttribute('readonly')}
+                      />
+                    </Form.Group>
+                    <div className="d-flex align-items-center justify-content-between mb-3">
+                      <Form.Check type="checkbox" id="terms" label="I agree to terms & conditions" />
+                      <small className="text-muted"><a href="#" className="text-decoration-none">Forgot Password?</a></small>
+                    </div>
+                    <div className="d-grid">
+                      <Button type="submit" disabled={loading} className="btn-login">
+                        {loading ? 'Signing in...' : 'Login'}
+                      </Button>
+                    </div>
+                  </Form>
+                  <div className="text-center mt-3">
+                    <small className="text-muted">Don't have an account? <Link to="/signup">Sign Up</Link></small>
+                  </div>
+                </Card.Body>
+              </Card>
             </div>
           </Col>
         </Row>

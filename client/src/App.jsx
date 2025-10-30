@@ -61,9 +61,10 @@ export default function App() {
   function AppContent() {
     const location = useLocation();
     const onRoot = location.pathname === '/';
+    const isAuthPath = location.pathname === '/login' || location.pathname === '/signup';
     return (
       <div className="d-flex flex-column min-vh-100">
-        {!onRoot && (
+        {!onRoot && !isAuthPath && (
           <Navbar bg="light" expand="lg" className="mb-0 shadow-sm">
             <Container>
               <LinkContainer to="/home"><Navbar.Brand className="fw-bold text-primary">SavoryShelf</Navbar.Brand></LinkContainer>
@@ -96,21 +97,35 @@ export default function App() {
         )}
 
         {/* Hero */}
-        {!onRoot && <AuthAwareHero />}
+        {!onRoot && !isAuthPath && <AuthAwareHero />}
 
-        <Container className="flex-grow-1 my-4">
-          <Routes>
-            <Route path="/" element={<Navigate to="/signup" replace />} />
-            <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-            <Route path="/add" element={<ProtectedRoute><AddRecipe /></ProtectedRoute>} />
-            <Route path="/edit/:id" element={<ProtectedRoute><EditRecipe /></ProtectedRoute>} />
-            <Route path="/recipes/:id" element={<ProtectedRoute><RecipeDetail /></ProtectedRoute>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </Container>
+        {isAuthPath ? (
+          <div className="flex-grow-1">
+            <Routes>
+              <Route path="/" element={<Navigate to="/signup" replace />} />
+              <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+              <Route path="/add" element={<ProtectedRoute><AddRecipe /></ProtectedRoute>} />
+              <Route path="/edit/:id" element={<ProtectedRoute><EditRecipe /></ProtectedRoute>} />
+              <Route path="/recipes/:id" element={<ProtectedRoute><RecipeDetail /></ProtectedRoute>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </div>
+        ) : (
+          <Container className="flex-grow-1 my-4">
+            <Routes>
+              <Route path="/" element={<Navigate to="/signup" replace />} />
+              <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+              <Route path="/add" element={<ProtectedRoute><AddRecipe /></ProtectedRoute>} />
+              <Route path="/edit/:id" element={<ProtectedRoute><EditRecipe /></ProtectedRoute>} />
+              <Route path="/recipes/:id" element={<ProtectedRoute><RecipeDetail /></ProtectedRoute>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </Container>
+        )}
 
-        {!onRoot && (
+        {!onRoot && !isAuthPath && (
           <footer className="bg-light py-3 mt-4">
             <Container><p className="text-center mb-0">SavoryShelf © 2025 — Share a recipe, spark a smile.</p></Container>
           </footer>

@@ -27,12 +27,11 @@ export default function Signup() {
   };
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-bg"></div>
-      <div className="auth-accent"></div>
+    <div className="auth-full">
+      <div className="auth-full-bg"></div>
       <Container>
-        <Row className="align-items-center justify-content-center g-4">
-          <Col xs={12} lg={6} xl={5}>
+        <Row className="justify-content-center">
+          <Col xs={12} sm={10} md={8} lg={6} xl={5}>
             <Card className="border-0 auth-card">
               <Card.Body className="p-4 p-md-5">
                 <div className="mb-3 text-center">
@@ -89,15 +88,6 @@ export default function Signup() {
                 </div>
               </Card.Body>
             </Card>
-          </Col>
-          <Col xs={12} lg={6} xl={7}>
-            <div className="auth-illustration">
-              <div className="auth-illustration-content">
-                <div className="auth-badge">🍽️ Trending now</div>
-                <h3 className="mt-3 mb-1">Your next favorite dish</h3>
-                <p className="mb-0">Save, share, and cook together.</p>
-              </div>
-            </div>
           </Col>
         </Row>
       </Container>
